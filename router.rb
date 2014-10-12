@@ -4,6 +4,8 @@ require "json"
 require "./request_parser"
 
 get '/:domain/:locale' do |domain, locale|
+	content_type :json
+
 	# Invoke the request parser
 	parser = RequestParser.new(domain, locale)
 	begin
@@ -17,6 +19,9 @@ get '/:domain/:locale' do |domain, locale|
 			domain: domain,
 			locale: locale
 		},
-		response: number
+		response: {
+			success: true,
+			number: number
+		}
 	}.to_json
 end
