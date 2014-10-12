@@ -1,3 +1,4 @@
+require "./exceptions"
 require "resolv"
 
 # This takes care of the DNS resolution and parsing of a request
@@ -13,7 +14,7 @@ class Resolver
 
 		# Exit here if there are no TXT records
 		if records.empty?
-			raise Exception.new("This domain has no TXT records!")
+			raise ResolverExceptions::NoTXTRecordException.new
 		end
 
 		# Get the record that starts with the identifier
@@ -21,7 +22,7 @@ class Resolver
 
 		# Exit here if there is no such record
 		if records.empty?
-			raise Exception.new("No phone record exists!")
+			raise ResolverExceptions::NoPhoneRecordException.new
 		end
 
 		# Remove the identifier
