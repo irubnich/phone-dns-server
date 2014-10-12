@@ -1,4 +1,4 @@
-require "./resolver"
+require "./lib/resolver"
 
 # This class parses a Sinatra request
 class RequestParser

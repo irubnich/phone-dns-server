@@ -1,7 +1,7 @@
 require "sinatra"
 require "json"
 
-require "./request_parser"
+require "./lib/request_parser"
 
 get '/:domain/:locale' do |domain, locale|
 	content_type :json
