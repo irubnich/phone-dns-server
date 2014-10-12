@@ -2,17 +2,13 @@ require "./resolver"
 
 # This class parses a Sinatra request
 class RequestParser
-	def initialize(domain, locale)
-		@domain, @locale = domain, locale
+	def initialize(request)
+		@domain, @locale = request[:domain], request[:locale]
 	end
 
 	def resolve_request
 		resolver = Resolver.new(@domain)
-		begin
-			return resolver.parse
-		rescue Exception => e
-			raise e # todo, handle
-		end
+		return resolver.parse
 	end
 
 	def get_number_for_locale
