@@ -7,7 +7,7 @@ class RequestParser
 	end
 
 	def resolve_request
-		resolver = Resolver.new(@domain)
+		resolver = PhoneDNS::Resolver.new(@domain)
 		return resolver.parse
 	end
 

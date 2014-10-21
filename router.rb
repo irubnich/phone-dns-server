@@ -1,6 +1,7 @@
 require "sinatra"
 require "json"
 
+require "./lib/logger"
 require "./lib/request_parser"
 
 get '/:domain/:locale' do |domain, locale|
@@ -20,6 +21,9 @@ get '/:domain/:locale' do |domain, locale|
 		return handle_error_response(phone_request, e)
 	end
 
+	# Log
+	PhoneDNS::Logger.log("Router", "success for #{phone_request} / #{number}")
+
 	return {
 		request: phone_request,
 		response: {
@@ -30,6 +34,9 @@ get '/:domain/:locale' do |domain, locale|
 end
 
 def handle_error_response(request, exception)
+	# Log
+	PhoneDNS::Logger.log("Router", "failure for #{request}: #{exception.message}")
+
 	return {
 		request: request,
 		response: {
