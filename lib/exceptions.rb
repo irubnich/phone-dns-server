@@ -1,4 +1,5 @@
-module ResolverExceptions
+module PhoneDNS
+	# Resolver
 	class NoTXTRecordException < Exception
 		def initialize(msg = "No TXT records exist for this domain.")
 			super
@@ -10,9 +11,8 @@ module ResolverExceptions
 			super
 		end
 	end
-end
 
-module RequestParserExceptions
+	# RequestParser
 	class NoNumberForLocaleException < Exception
 		def initialize(msg = "No phone number exists for this locale.")
 			super

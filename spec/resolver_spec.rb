@@ -31,11 +31,11 @@ describe PhoneDNS::Resolver do
 		allow(@resolver).to receive(:get_txt) do
 			[Resolv::DNS::Resource::IN::TXT.new("some unrelated record", "and string 2")]
 		end
-		expect { @resolver.parse }.to raise_error(ResolverExceptions::NoPhoneRecordException)
+		expect { @resolver.parse }.to raise_error(PhoneDNS::NoPhoneRecordException)
 	end
 
 	it "handles there being no records" do
 		allow(@resolver).to receive(:get_txt) { [] }
-		expect { @resolver.parse }.to raise_error(ResolverExceptions::NoTXTRecordException)
+		expect { @resolver.parse }.to raise_error(PhoneDNS::NoTXTRecordException)
 	end
 end

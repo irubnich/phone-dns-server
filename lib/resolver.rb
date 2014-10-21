@@ -15,7 +15,7 @@ module PhoneDNS
 
 			# Exit here if there are no TXT records
 			if records.empty?
-				raise ResolverExceptions::NoTXTRecordException.new
+				raise PhoneDNS::NoTXTRecordException.new
 			end
 
 			# Get the record that starts with the identifier
@@ -23,7 +23,7 @@ module PhoneDNS
 
 			# Exit here if there is no such record
 			if records.empty?
-				raise ResolverExceptions::NoPhoneRecordException.new
+				raise PhoneDNS::NoPhoneRecordException.new
 			end
 
 			# Remove the identifier

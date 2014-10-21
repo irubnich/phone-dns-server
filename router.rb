@@ -14,7 +14,7 @@ get '/:domain/:locale' do |domain, locale|
 	}
 
 	# Invoke the request parser
-	parser = RequestParser.new(phone_request)
+	parser = PhoneDNS::RequestParser.new(phone_request)
 	begin
 		number = parser.get_number_for_locale
 	rescue Exception => e
