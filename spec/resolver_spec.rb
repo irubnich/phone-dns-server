@@ -1,5 +1,4 @@
 require "./lib/resolver"
-require "pry"
 
 describe PhoneDNS::Resolver do
 	before :each do
@@ -14,17 +13,17 @@ describe PhoneDNS::Resolver do
 
 	it "can parse results" do
 		allow(@resolver).to receive(:get_txt) do
-			[Resolv::DNS::Resource::IN::TXT.new("phone-dns", "en_US=3478823858", "en_GB=1112223333", "mr=1112223333")]
+			[Resolv::DNS::Resource::IN::TXT.new("phone-dns", "en_US=1112223333", "en_GB=1112223333", "mr=1112223333")]
 		end
-		expect(@resolver.parse).to eql ["en_US=3478823858", "en_GB=1112223333", "mr=1112223333"]
+		expect(@resolver.parse).to eql ["en_US=1112223333", "en_GB=1112223333", "mr=1112223333"]
 	end
 
 	it "doesn't parse unrelated results" do
 		allow(@resolver).to receive(:get_txt) do
-			[Resolv::DNS::Resource::IN::TXT.new("phone-dns", "en_US=3478823858", "en_GB=1112223333", "mr=1112223333"),
+			[Resolv::DNS::Resource::IN::TXT.new("phone-dns", "en_US=1112223333", "en_GB=1112223333", "mr=1112223333"),
 			 Resolv::DNS::Resource::IN::TXT.new("some unrelated record", "and string 2")]
 		end
-		expect(@resolver.parse).to eql ["en_US=3478823858", "en_GB=1112223333", "mr=1112223333"]
+		expect(@resolver.parse).to eql ["en_US=1112223333", "en_GB=1112223333", "mr=1112223333"]
 	end
 
 	it "handles there being no phone records" do
