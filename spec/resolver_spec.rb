@@ -1,4 +1,4 @@
-require "./lib/resolver"
+require "./lib/phone_dns/resolver"
 
 describe PhoneDNS::Resolver do
 	before :each do

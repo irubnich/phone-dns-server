@@ -1,4 +1,4 @@
-require "./lib/request_parser"
+require "./lib/phone_dns/request_parser"
 
 describe PhoneDNS::RequestParser do
 	before :each do

@@ -1,4 +1,4 @@
-require "./lib/exceptions"
+require "./lib/phone_dns/exceptions"
 require "resolv"
 
 # This takes care of the DNS resolution and parsing of a request

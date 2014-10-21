@@ -1,4 +1,4 @@
-require "./lib/resolver"
+require "./lib/phone_dns/resolver"
 
 # This class parses a Sinatra request
 module PhoneDNS

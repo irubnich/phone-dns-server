@@ -1,8 +1,8 @@
 require "sinatra"
 require "json"
 
-require "./lib/phonedns_logger"
-require "./lib/request_parser"
+require "./lib/phone_dns/logger"
+require "./lib/phone_dns/request_parser"
 
 get '/:domain/:locale' do |domain, locale|
 	content_type :json
