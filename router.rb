@@ -24,24 +24,26 @@ get '/:domain/:locale' do |domain, locale|
 	# Log
 	PhoneDNS::Logger.log("Router", "success for #{phone_request} / #{number}")
 
-	return {
+	status 200
+	body({
 		request: phone_request,
 		response: {
 			success: true,
 			number: number
 		}
-	}.to_json
+	}.to_json)
 end
 
 def handle_error_response(request, exception)
 	# Log
 	PhoneDNS::Logger.log("Router", "failure for #{request}: #{exception.message}")
 
-	return {
+	status 404
+	body({
 		request: request,
 		response: {
 			success: false,
 			error: exception.message
 		}
-	}.to_json
+	}.to_json)
 end
