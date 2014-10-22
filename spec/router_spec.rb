@@ -1,11 +1,26 @@
 require './router'
 require 'rack/test'
+require 'pry'
 
 describe 'main API endpoint' do
 	include Rack::Test::Methods
 
 	def app
 		Sinatra::Application
+	end
+
+	before :each do
+		@parser = PhoneDNS::RequestParser.new({
+			:domain => "example.com",
+			:locale => "en_US"
+		})
+	end
+
+	it "gives a proper success response" do
+		allow(@parser).to receive(:resolve_request) do
+			["en_US=1112223333", "en_GB=1235551212", "mr=3215550909"]
+		end
+		# todo
 	end
 
 	it "gives a proper error response" do
