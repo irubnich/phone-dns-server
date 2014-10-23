@@ -4,6 +4,10 @@ source 'https://rubygems.org'
 gem 'unicorn'
 gem 'sinatra'
 
+# DB
+gem 'mongo'
+gem 'bson_ext'
+
 # Testing
 group :test do
 	gem 'pry'

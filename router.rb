@@ -16,20 +16,20 @@ get '/:domain/:locale' do |domain, locale|
 	# Invoke the request parser
 	parser = PhoneDNS::RequestParser.new(phone_request)
 	begin
-		number = parser.get_number_for_locale
+		result = parser.get_number_for_locale
 	rescue Exception => e
 		return handle_error_response(phone_request, e)
 	end
 
 	# Log
-	PhoneDNS::Logger.log("Router", "success for #{phone_request} / #{number}")
+	PhoneDNS::Logger.log("Router", "success for #{phone_request} / #{result}")
 
 	status 200
 	body({
 		request: phone_request,
 		response: {
 			success: true,
-			number: number
+			number: result[:number]
 		}
 	}.to_json)
 end

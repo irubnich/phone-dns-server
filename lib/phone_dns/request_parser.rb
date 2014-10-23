@@ -1,4 +1,5 @@
 require "./lib/phone_dns/resolver"
+require "./lib/phone_dns/db"
 
 # This class parses a Sinatra request
 module PhoneDNS
@@ -7,20 +8,46 @@ module PhoneDNS
 			@domain, @locale = request[:domain], request[:locale]
 		end
 
+		# DNS
 		def resolve_request
 			resolver = PhoneDNS::Resolver.new(@domain)
 			return resolver.parse
 		end
 
+		# DB
+		# Here we can actually make an efficient query with both the domain and locale at the same time
+		def query_request
+			db = PhoneDNS::DB.new
+			return db.find(@domain, @locale)
+		end
+
 		def get_number_for_locale
+			# Try DNS
 			numbers = resolve_request
 			number_in_locale = numbers.select { |num| num[@locale] }
+
 			if number_in_locale.empty?
+				# Fallback quietly to a DB query
+			else
+				# Okay we know there is a number with this locale, just split it out now
+				return {
+					number: number_in_locale[0].split('=')[1],
+					source: "DNS"
+				}
+			end
+
+			# Try DB
+			number_in_locale = query_request
+
+			if number_in_locale.empty?
+				# At this point, we have exhausted our options, so raise an exception.
 				raise PhoneDNS::NoNumberForLocaleException
 			end
 
-			# Okay we know there is a number in the locale, just split it out now
-			return number_in_locale[0].split('=')[1]
+			return {
+				number: number_in_locale[0]["number"],
+				source: "DB"
+			}
 		end
 	end
 end
