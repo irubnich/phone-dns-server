@@ -13,13 +13,13 @@ describe PhoneDNS::RequestParser do
 	end
 
 	it "gets a number given a present locale" do
-		expect(@parser.get_number_for_locale).to eql "1112223333"
+		expect(@parser.get_number_for_locale[:number]).to eql "1112223333"
 	end
 
 	# Sanity check
 	it "gets a number given a non-US locale" do
 		@parser.instance_variable_set(:@locale, "mr")
-		expect(@parser.get_number_for_locale).to eql "3215550909"
+		expect(@parser.get_number_for_locale[:number]).to eql "3215550909"
 	end
 
 	it "gives an error given a non-present locale" do
