@@ -39,13 +39,13 @@ module PhoneDNS
 			# Try DB
 			number_in_locale = query_request
 
-			if number_in_locale.empty?
+			if number_in_locale.nil?
 				# At this point, we have exhausted our options, so raise an exception.
 				raise PhoneDNS::NoNumberForLocaleException
 			end
 
 			return {
-				number: number_in_locale[0]["number"],
+				number: number_in_locale["number"],
 				source: "DB"
 			}
 		end

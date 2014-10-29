@@ -20,12 +20,12 @@ module PhoneDNS
 
 		def find(domain, locale)
 			# Query
-			result = @collection.find({
+			result = @collection.find_one({
 				domain: domain,
 				locale: locale
-			}).limit(1)
+			})
 
-			return result.to_a
+			return result
 		end
 	end
 end
