@@ -11,7 +11,18 @@ module PhoneDNS
 		# DNS
 		def resolve_request
 			resolver = PhoneDNS::Resolver.new(@domain)
-			return resolver.parse
+
+			# Attmpt to resolve the given request via DNS
+			begin
+				return resolver.parse
+			rescue PhoneDNS::NoTXTRecordException => e
+				# This means we can fallback to DB
+			rescue PhoneDNS::NoPhoneRecordException => e
+				# This means we can fallback to DB
+			end
+
+			# We'd have raised any other exceptions by now
+			return []
 		end
 
 		# DB
