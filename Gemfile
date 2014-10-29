@@ -8,9 +8,11 @@ gem 'sinatra'
 gem 'mongo'
 gem 'bson_ext'
 
+# Default
+gem 'rake'
+
 # Testing
 group :test do
-	gem 'rake'
 	gem 'pry'
 	gem 'rack-test'
 	gem 'rspec'
