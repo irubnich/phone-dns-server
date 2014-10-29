@@ -11,6 +11,10 @@ gem 'bson_ext'
 # Default
 gem 'rake'
 
+group :production do
+	gem 'newrelic_rpm'
+end
+
 # Testing
 group :test do
 	gem 'pry'
